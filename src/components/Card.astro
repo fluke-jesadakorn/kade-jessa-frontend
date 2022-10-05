@@ -1,0 +1,40 @@
+---
+export interface Props {
+  title?: string;
+  body?: string;
+  href?: string;
+  src?: string;
+  price?: number;
+  hashtag?: string;
+  key?: string;
+}
+
+const {
+  hashtag = "#newtag",
+  src = "https://www.dior.com/couture/var/dior/storage/images/pushs-editos/folder-main-winter-22-femme/folder-winter-w2/254r17am523x9000/36557358-1-eng-GB/254r17am523x9000_1440_1200.jpg",
+  href = "/",
+  title = "title",
+  body = "this is body",
+  number = 50,
+  key = "",
+} = Astro.props;
+---
+
+<a href={href}>
+  <img src={src} alt={title} width={350} height={400} />
+  <h3>{hashtag}</h3>
+  <h2>{title}</h2>
+  <p>{body}</p>
+  <h4>&#3647 {number}</h4>
+</a>
+
+<style>
+  :root {
+    --link-gradient: linear-gradient(
+      45deg,
+      #4f39fa,
+      #da62c4 30%,
+      var(--color-border) 60%
+    );
+  }
+</style>
