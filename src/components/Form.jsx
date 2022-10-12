@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
+import { initialize } from "../utils/firebaseInit";
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../styles/tags.scss'
 
 const FormGroup = ({ ENDPOINT }) => {
@@ -74,14 +76,31 @@ const FormGroup = ({ ENDPOINT }) => {
         })
     }
 
-    const getData = () => {
-        fetch(ENDPOINT + '/')
-            .then(res => res.json())
-            .then(resp => {
-                console.log(resp)
-                setTables(resp)
-            })
-            .catch(err => console.error(err))
+    const getData = async () => {
+        await initialize()
+        onAuthStateChanged(getAuth(), user => {
+            if (user) {
+                fetch(ENDPOINT + '/admin', {
+                    method: "GET",
+                    headers: {
+                        "Authentication": "Bearer " + user.getIdToken()
+                    }
+                })
+                    .then(res => {
+                        if (!res.ok) {
+                            res.text().then(result => Promise.reject(new Error(result)));
+                        }
+                        return res.json()
+                    })
+                    .then(resp => {
+                        console.log(resp)
+                        // setTables(resp)
+                    })
+                    .catch(err => console.error(err))
+
+            }
+        })
+
     }
 
     useEffect(() => {
