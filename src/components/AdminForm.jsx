@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
-import { initialize } from "../utils/firebaseInit";
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import '../styles/tags.scss'
 
 const FormGroup = ({ ENDPOINT }) => {
@@ -36,13 +34,13 @@ const FormGroup = ({ ENDPOINT }) => {
 
         convert.append('data', JSON.stringify(form))
 
-        fetch(ENDPOINT + '/upload', {
+        fetch(ENDPOINT + '/admin/upload', {
             method: 'POST',
             body: convert,
+            credentials: "include"
         })
             .then(result => result.json())
-            .then(res => {
-                console.log(res)
+            .then(() => {
                 getData()
             })
             .catch(err => console.log(err))
@@ -77,30 +75,15 @@ const FormGroup = ({ ENDPOINT }) => {
     }
 
     const getData = async () => {
-        await initialize()
-        onAuthStateChanged(getAuth(), user => {
-            if (user) {
-                fetch(ENDPOINT + '/admin', {
-                    method: "GET",
-                    headers: {
-                        "Authentication": "Bearer " + user.getIdToken()
-                    }
-                })
-                    .then(res => {
-                        if (!res.ok) {
-                            res.text().then(result => Promise.reject(new Error(result)));
-                        }
-                        return res.json()
-                    })
-                    .then(resp => {
-                        console.log(resp)
-                        // setTables(resp)
-                    })
-                    .catch(err => console.error(err))
-
-            }
+        fetch(ENDPOINT + '/admin/post', {
+            credentials: "include"
         })
-
+            .then(res => res.json())
+            .then(resp => {
+                console.log(resp)
+                setTables(resp)
+            })
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {

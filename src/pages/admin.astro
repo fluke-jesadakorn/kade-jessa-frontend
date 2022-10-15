@@ -1,10 +1,16 @@
 ---
-import FormGroup from "../components/Form.jsx";
+import AdminForm from "../components/AdminForm.jsx";
+import Header from "../layouts/Header.jsx";
 
 const ENDPOINT = import.meta.env.ENDPOINT;
 
+const cookie = Astro.request.headers.get("cookie");
+if (!cookie) {
+  return Astro.redirect("/login");
+}
 ---
 
 <div class="overflow-x-auto w-full">
-  <FormGroup client:load ENDPOINT={ENDPOINT} />
+  <Header client:load />
+  <AdminForm client:load ENDPOINT={ENDPOINT} />
 </div>
