@@ -1,13 +1,14 @@
 import { defineConfig } from 'astro/config';
 import react from "@astrojs/react";
-import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
 
+// https://astro.build/config
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind()],
   output: "server",
-  adapter: cloudflare()
+  adapter: cloudflare({ mode: "directory" }),
+  // adapter: cloudflare()
 });
