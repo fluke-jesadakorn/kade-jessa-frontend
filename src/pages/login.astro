@@ -1,6 +1,6 @@
 ---
 import Login from "../components/Login.jsx";
-import Header from "../layouts/Header.jsx";
+import Header from "../components/Header.jsx";
 const ENDPOINT = import.meta.env.ENDPOINT;
 
 const cookie = Astro.request.headers.get("cookie");
@@ -10,6 +10,6 @@ if (cookie) {
 ---
 
 <div class="overflow-x-auto w-screen h-screen">
-  <Header client:load admin="KADE JESSA ADMIN"/>
+  <Header client:load/>
   <Login client:load ENDPOINT={ENDPOINT} />
 </div>

@@ -1,34 +1,29 @@
 ---
 import Card from "../components/Card.astro";
-import Header from "../layouts/Header.jsx";
+import Header from "../components/Header.jsx";
 const ENDPOINT = import.meta.env.ENDPOINT;
 
 const getDate = await fetch(ENDPOINT).then((res) => res.json());
 ---
 
-<Header client:load admin="" />
-
-<main class="my-4 mx-auto px-8">
-  <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
-    {
-      getDate.map((item, index) => {
-        return (
-          <Card
-            title={item.Title}
-            key={index}
-            body={item.Description}
-            href={"/products/" + index}
-            src={"https://storage.googleapis.com" + item.Images[0]}
-            hashtag={item.Hashtags[0]}
-          />
-        );
-      })
-    }
-  </div>
-</main>
-
-<style>
-  :root {
-    --astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
-  }
-</style>
+<div>
+  <Header client:only="react" />
+  <main class="my-4 mx-auto px-8">
+    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
+      {
+        getDate.map((item, index) => {
+          return (
+            <Card
+              title={item.Title}
+              key={index}
+              body={item.Description}
+              href={"/products/" + index}
+              src={"https://storage.googleapis.com" + item.Images[0]}
+              hashtag={item.Hashtags[0]}
+            />
+          );
+        })
+      }
+    </div>
+  </main>
+</div>

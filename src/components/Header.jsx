@@ -1,12 +1,10 @@
-import '../styles/header.scss'
-
-export default function Example({ admin = "" }) {
+export default function Example() {
 
   return (
     <main className='bg-slate-300 flex justify-between'>
       <div className="navbar bg-base-300">
         <div className="flex-1 px-2 lg:flex-none">
-          <a href='/' className="text-lg font-bold">{admin ? admin : "KADE JESSA"}</a>
+          <a href='/' className="text-lg font-bold">{"KADE JESSA"}</a>
         </div>
         <div className="flex justify-end flex-1 px-2">
           <div className="flex items-stretch">
