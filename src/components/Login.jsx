@@ -68,7 +68,7 @@ const Login = ({ ENDPOINT }) => {
             <div className="form-control py-4 w-full">
                 <label className="input-group input-group-md w-full">
                     <span>Password</span>
-                    <input ref={passRef} type="text" placeholder="Enter password" className="input input-bordered input-md w-full" />
+                    <input ref={passRef} type="password" placeholder="Enter password" className="input input-bordered input-md w-full" />
                 </label>
             </div>
             <div className="form-control py-4 w-full">

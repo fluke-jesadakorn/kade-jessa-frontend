@@ -1,15 +1,14 @@
 ---
 import Login from "../components/Login.jsx";
-import Header from "../components/Header.jsx";
 const ENDPOINT = import.meta.env.ENDPOINT;
 
-const cookie = Astro.request.headers.get("cookie");
-if (cookie) {
+const cookie = Astro.cookies.get("auth");
+
+if (cookie.value) {
   return Astro.redirect("/admin");
 }
 ---
 
 <div class="overflow-x-auto w-screen h-screen">
-  <Header client:load/>
   <Login client:load ENDPOINT={ENDPOINT} />
 </div>

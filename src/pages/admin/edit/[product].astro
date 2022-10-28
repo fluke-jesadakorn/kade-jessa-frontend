@@ -1,0 +1,43 @@
+---
+const product = Astro.params;
+const ENDPOINT = import.meta.env.ENDPOINT;
+const getDate = await fetch(ENDPOINT).then((res) => res.json());
+console.log(getDate)
+---
+
+{JSON.stringify(product)}
+<div class="grid grid-cols-2 gap-4 px-4">
+    <section class="grid grid-cols-1 gap-4">
+        <div>
+            <img
+                src="https://wwws.dior.com/couture/ecommerce/media/catalog/product/cache/1/cover_image_1/870x580/17f82f742ffe127f42dca9de82fb58b1/v/8/1658756814_111R07A1166_X9009_E01_ZHC.jpg?imwidth=870"
+                alt="dress"
+            />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <img
+                src="https://wwws.dior.com/couture/ecommerce/media/catalog/product/cache/1/grid_image_8/460x497/17f82f742ffe127f42dca9de82fb58b1/v/8/1658756814_111R07A1166_X9009_E08_GH.jpg?imwidth=430"
+                alt="dress"
+            />
+            <img
+                src="https://wwws.dior.com/couture/ecommerce/media/catalog/product/cache/1/grid_image_9/460x497/17f82f742ffe127f42dca9de82fb58b1/v/8/1658756815_111R07A1166_X9009_E09_GH.jpg?imwidth=430"
+                alt="dress"
+            />
+        </div>
+    </section>
+    <section class="divide-y">
+        <div>
+            <h1>FITTED DRESS WITH 'CD' BUTTONS</h1>
+            <p>Black Wool and Silk</p>
+            <p>Reference: 111R07A1166_X9009</p>
+        </div>
+        <div>
+            <h4>&#3647 50</h4>
+        </div>
+        <div
+            class="pointer-events-auto relative inline-flex rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 hover:text-slate-900"
+        >
+            <div class="flex py-2 px-3">Purchase</div>
+        </div>
+    </section>
+</div>

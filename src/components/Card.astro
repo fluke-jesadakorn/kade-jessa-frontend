@@ -20,8 +20,8 @@ const {
 } = Astro.props;
 ---
 
-<a href={href}>
-  <img src={src} alt={title} width={350} height={400} />
+<a href={"/products/" + key}>
+  <img src={src} alt={title} width={400} height={500} />
   <h3>{hashtag}</h3>
   <h2>{title}</h2>
   <p>{body}</p>

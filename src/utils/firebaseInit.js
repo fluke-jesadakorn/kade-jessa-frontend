@@ -48,3 +48,9 @@ export const getAuth = async () => {
     return firestoreInstance
 }
 
+export const getAnalytics = async () => {
+    if (firestoreInstance) return firestoreInstance
+    const { getAuth } = import('firebase/analytics')
+    firestoreInstance = getAuth(await getInstance())
+    return firestoreInstance
+}

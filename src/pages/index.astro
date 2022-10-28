@@ -1,29 +1,45 @@
 ---
 import Card from "../components/Card.astro";
-import Header from "../components/Header.jsx";
+import Header from "../components/Header.astro";
+import Test from "../components/Test.jsx";
+
 const ENDPOINT = import.meta.env.ENDPOINT;
 
 const getDate = await fetch(ENDPOINT).then((res) => res.json());
 ---
 
-<div>
-  <Header client:only="react" />
-  <main class="my-4 mx-auto px-8">
-    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
-      {
-        getDate.map((item, index) => {
-          return (
-            <Card
-              title={item.Title}
-              key={index}
-              body={item.Description}
-              href={"/products/" + index}
-              src={"https://storage.googleapis.com" + item.Images[0]}
-              hashtag={item.Hashtags[0]}
-            />
-          );
-        })
-      }
-    </div>
-  </main>
-</div>
+<head>
+  <!-- head -->
+  <script
+    type="text/partytown"
+    src="https://www.googletagmanager.com/gtag/js?id=G-NXXT48SER9"
+  ></script>
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-NXXT48SER9");
+  </script>
+</head>
+
+<Header />
+<main class="my-4 mx-auto px-8">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
+    {
+      getDate.map((item, index) => {
+        return (
+          <Card
+            title={item.Title}
+            key={item.ID}
+            body={item.Description}
+            href={"/products/" + index}
+            src={"https://storage.googleapis.com" + item.Images[0]}
+            hashtag={item.Hashtags[0]}
+          />
+        );
+      })
+    }
+  </div>
+</main>

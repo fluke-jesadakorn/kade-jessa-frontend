@@ -1,0 +1,14 @@
+---
+import AdminForm from "../../components/AdminForm.jsx";
+
+const ENDPOINT = import.meta.env.ENDPOINT;
+
+const cookie = Astro.cookies.get("auth");
+if (!cookie.value) {
+  return Astro.redirect("/login");
+}
+---
+
+<div class="overflow-x-auto w-full">
+  <AdminForm client:load ENDPOINT={ENDPOINT} />
+</div>
