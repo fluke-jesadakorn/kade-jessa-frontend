@@ -1,8 +1,6 @@
 ---
 import Card from "../components/Card.astro";
 import Header from "../components/Header.astro";
-import Test from "../components/Test.jsx";
-
 const ENDPOINT = import.meta.env.ENDPOINT;
 
 const getDate = await fetch(ENDPOINT).then((res) => res.json());
@@ -10,6 +8,8 @@ const getDate = await fetch(ENDPOINT).then((res) => res.json());
 
 <head>
   <!-- head -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <script
     type="text/partytown"
     src="https://www.googletagmanager.com/gtag/js?id=G-NXXT48SER9"
@@ -25,8 +25,41 @@ const getDate = await fetch(ENDPOINT).then((res) => res.json());
 </head>
 
 <Header />
-<Test client:load/>
+<script
+  is:inline
+  charset="utf-8"
+  src="https://static.line-scdn.net/liff/edge/versions/2.5.0/sdk.js"
+></script>
+
+<script type="text/partytown">
+  const liffInit = async () => {
+    document.getElementById("init").innerText = "Run function";
+    liff = window.liff || "";
+    liff
+      .init({
+        liffId: "1657635161-nb8pvrVQ",
+      })
+      .then(() => {
+        alert("inited");
+        document.getElementById("init").innerText = "Init";
+        if (liff.isInClient()) {
+          console.log("in client");
+          document.getElementById("profileId").innerText =
+            "id is " + liff.getIDToken();
+        }
+        console.log("Success! you can do something with LIFF API here.");
+      })
+      .catch((error) => {
+        document.getElementById("init").innerText = "Error";
+        console.log(error);
+        alert("error");
+      });
+  };
+  liffInit();
+</script>
 <main class="my-4 mx-auto px-8">
+  <p id="init"></p>
+  <p id="profileId"></p>
   <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
     {
       getDate.map((item, index) => {

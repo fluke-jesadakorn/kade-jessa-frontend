@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
@@ -13,13 +13,21 @@ import image from "@astrojs/image";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind(), sitemap(), partytown({
-    // Adds dataLayer.push as a forwarding-event.
-    config: {
-      forward: ["dataLayer.push"]
-    }
-  }), react(), image()],
+  integrations: [
+    react(),
+    tailwind(),
+    sitemap(),
+    partytown({
+      // Adds dataLayer.push as a forwarding-event.
+      config: {
+        debug: true,
+        forward: ["dataLayer.push", "liff"],
+      },
+    }),
+    react(),
+    image(),
+  ],
   output: "server",
   // adapter: cloudflare({ mode: "directory" }),
-  adapter: vercel()
+  adapter: vercel(),
 });

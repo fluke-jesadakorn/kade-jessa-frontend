@@ -7,7 +7,6 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "yarn build && wrangler pages dev ./dist",
     "astro": "astro",
     "deploy": "vercel"
   },
@@ -34,7 +33,6 @@
     "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
-    "sass": "^1.55.0",
-    "wrangler": "^2.1.11"
+    "sass": "^1.55.0"
   }
 }
