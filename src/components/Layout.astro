@@ -1,0 +1,46 @@
+---
+import Header from "../components/Header.astro";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-NXXT48SER9"
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-NXXT48SER9");
+    </script>
+  </head>
+  <script
+    is:inline
+    charset="utf-8"
+    src="https://static.line-scdn.net/liff/edge/versions/2.5.0/sdk.js"
+  ></script>
+  <script is:inline>
+    const liffInit = async () => {
+      const liff = window.liff || "";
+
+      await liff.init({
+        liffId: "1657635161-nb8pvrVQ",
+      });
+
+      if (liff.isInClient()) {
+        document.getElementById("init").innerText =
+          "ID Token Is" + liff.getIDToken();
+      }
+    };
+
+    liffInit();
+  </script>
+  <Header />
+  <slot />
+</html>

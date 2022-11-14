@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { useStore } from "@nanostores/react";
+import { num } from "../store.ts";
+
 export default function Test() {
-    const [state, setState] = useState(0)
-    return <button onClick={() => setState(prev => prev + 1)}>{state}</button>
+  const number = useStore(num);
+  return (
+    <button onClick={() => num.set(num.get() +1)}>number is : {number}</button>
+  );
 }

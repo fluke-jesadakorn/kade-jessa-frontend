@@ -1,7 +1,6 @@
 ---
 import Login from "../components/Login.jsx";
 const ENDPOINT = import.meta.env.ENDPOINT;
-
 const cookie = Astro.cookies.get("auth");
 
 if (cookie.value) {
