@@ -19,6 +19,7 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^2.0.1",
     "@astrojs/vercel": "^2.3.3",
+    "@line/liff": "^2.21.3",
     "@nanostores/persistent": "^0.7.0",
     "@nanostores/react": "^0.4.0",
     "@types/react": "^18.0.21",

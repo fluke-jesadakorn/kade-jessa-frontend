@@ -1,6 +1,13 @@
-
-<div class="flex flex-row justify-center my-4">
-  <h1 class="text-4xl"><a href="/">KADE JESSA</a></h1>
+<script>
+      import { IDs } from "../utils/store";
+      IDs.subscribe((value) => {
+        document.getElementById("cart").innerText = value.length.toString();
+      })
+</script>
+<div class="flex flex-row justify-between my-4">
+  <div><h1 class="text-4xl"><a href="/">Home</a></h1></div>
+  <div><h1 class="text-4xl"><a href="/">KADE JESSA</a></h1></div>
+  <div><h1 class="text-4xl" ><a href="/cart" id="cart">0</a></h1></div>
 </div>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap");
