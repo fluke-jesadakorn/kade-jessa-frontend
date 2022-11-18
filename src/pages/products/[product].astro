@@ -5,7 +5,7 @@ import { IDs } from '../../utils/store'
 const ENDPOINT = import.meta.env.ENDPOINT;
 const product = Astro.params.product;
 
-const getDate = await fetch(ENDPOINT + "/products/" + product)
+const getDate = await fetch(ENDPOINT + "/products/name/" + product)
   .then((res) => res.json())
   .catch((err) => console.error(err));
 

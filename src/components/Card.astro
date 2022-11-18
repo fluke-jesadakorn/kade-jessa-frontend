@@ -1,5 +1,5 @@
 ---
-// import { Image } from "@astrojs/image/components";
+import { Image } from "@astrojs/image/components";
 export interface Props {
   title?: string;
   body?: string;
@@ -22,7 +22,14 @@ const {
 ---
 
 <a href={"/products/" + title}>
-  <img src={src} alt={title} width={400} height={500} />
+  <Image
+    src={src}
+    alt={title}
+    width={400}
+    height={500}
+    format="webp"
+    quality={50}
+  />
   <h3>{hashtag}</h3>
   <h2>{title}</h2>
   <p>{body}</p>
