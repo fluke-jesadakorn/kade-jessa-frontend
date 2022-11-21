@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/Button.jsx";
-import { IDs } from '../../utils/store'
 const ENDPOINT = import.meta.env.ENDPOINT;
 const product = Astro.params.product;
 
@@ -16,8 +15,10 @@ type Product = {
   Description: string;
   Hashtags: string[];
   Images: string[];
+  Price: number;
 };
-const { ID, Title, Colors, Description, Hashtags, Images }: Product = getDate;
+const { ID, Title, Colors, Description, Hashtags, Images, Price }: Product =
+  getDate;
 // const Images = getDate.Images;
 // const Title = getDate.Title;
 ---
@@ -54,15 +55,13 @@ const { ID, Title, Colors, Description, Hashtags, Images }: Product = getDate;
         <p>Reference: {ID}</p>
       </div>
       <div>
-        <h4>&#3647 50</h4>
+        <h4>&#3647 {Price}</h4>
       </div>
       <div
         class="pointer-events-auto relative inline-flex rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 hover:text-slate-900"
       >
-        <Button name={"Purchase"} ID={ID} client:idle />
+        <Button item={{ ...getDate, items: 1 }} client:load />
       </div>
-    </section>
-    <section class="grid grid-cols-1 gap-4">
       <div>
         <img src={"https://storage.googleapis.com" + Images[0]} alt={Title} />
       </div>

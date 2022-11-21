@@ -16,8 +16,8 @@ const {
   href = "/",
   title = "title",
   body = "this is body",
-  number = 50,
   key = "",
+  price = null,
 } = Astro.props;
 ---
 
@@ -33,7 +33,7 @@ const {
   <h3>{hashtag}</h3>
   <h2>{title}</h2>
   <p>{body}</p>
-  <h4>&#3647 {number}</h4>
+  <h4>&#3647 {price}</h4>
 </a>
 
 <style>

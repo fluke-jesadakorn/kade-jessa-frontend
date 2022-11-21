@@ -27,6 +27,7 @@ const getDate = await fetch(ENDPOINT).then((res) => res.json());
               href={"/products/" + index.Title}
               src={"https://storage.googleapis.com" + item.Images[0]}
               hashtag={item.Hashtags[0]}
+              price={item.Price}
             />
           );
         })

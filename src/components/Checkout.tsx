@@ -1,13 +1,33 @@
-import { useStore } from "@nanostores/react";
-import { IDs } from "../utils/store";
-const ENDPOINT = import.meta.env.PUBLIC_ENDPOINT;
+import { Cart } from "../utils/store";
+const PUBLIC_ENDPOINT = import.meta.env.PUBLIC_ENDPOINT;
+type CartType = {
+  ID: string;
+  Title: string;
+  Colors: string[];
+  Description: string;
+  Hashtags: string[];
+  Images: string[];
+  Price: number;
+  items?: number;
+};
+
+const getDates = async (ID) => {
+  const data = await fetch(PUBLIC_ENDPOINT + "/products/id/" + ID).then((res) =>
+    res.json()
+  );
+  return data;
+};
+
+const ManyData: CartType[] = await Promise.all(
+  Cart.get().map(async (item) => getDates(item.ID))
+);
 
 export default function Checkout() {
-  const ids = useStore(IDs);
-
-  const getProducts = fetch(ENDPOINT + "/", {}).then((res) => res);
-  const placeOrder = () => liff.sendMessages([{ type: "text", text: "" }]);
-  const placeOrder2 = () =>
+  const placeOrder = () => {
+    liff.sendMessages([{ type: "text", text: JSON.stringify(ManyData) }]);
+    liff.closeWindow();
+  };
+  const placeOrder2 = () => {
     liff.sendMessages([
       {
         type: "flex",
@@ -22,5 +42,6 @@ export default function Checkout() {
         },
       },
     ]);
-  return <div onClick={placeOrder2}>Check out</div>;
+  };
+  return <div onClick={placeOrder}>Check out</div>;
 }
