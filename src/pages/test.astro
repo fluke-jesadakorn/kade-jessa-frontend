@@ -4,14 +4,6 @@ const stripe = new Stipe(
   "rk_test_51LxZBODRieJApjECqITmXUGlJVatEgFNGypGwacvmhRGTAlBsYsJD5xhZvSHFf3Mhn7HapnVmL9pUYTNeora6U3t006F09tKpc",
   { apiVersion: "2022-11-15" }
 );
-// const create = async () => {
-//   return await stripe.paymentIntents.create({
-//     payment_method_types: ["promptpay"],
-//     amount: 10900,
-//     currency: "thb",
-//   });
-// };
-// console.log(await create());
 const test = async () =>
   await stripe.checkout.sessions.create({
     success_url: "http://localhost:3000",
@@ -74,13 +66,5 @@ test();
 </script>
 
 <form id="payment-form">
-  <div class="form-row">
-    <label for="email"> Email</label>
-    <input id="email" name="email" required />
-  </div>
-
-  <!-- Used to display form errors. -->
-  <div id="error-message" role="alert"></div>
-
   <button id="submit-button">Pay with PromptPay</button>
 </form>
