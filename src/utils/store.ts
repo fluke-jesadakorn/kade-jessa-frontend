@@ -1,4 +1,4 @@
-import { persistentAtom, } from "@nanostores/persistent";
+import { persistentAtom, persistentMap } from "@nanostores/persistent";
 
 export type CartType = {
   ID: string;
@@ -12,6 +12,7 @@ export type CartType = {
 };
 
 export const reduceItems = (ID) => {
+  console.log(ID);
   const Index = Cart.get().findIndex((item) => {
     return item.ID == ID;
   });
@@ -21,6 +22,7 @@ export const reduceItems = (ID) => {
   } else {
     oldValue[Index].items--;
   }
+  console.log(oldValue);
   Cart.set(oldValue);
 };
 
@@ -30,11 +32,12 @@ export const increseItems = (ID) => {
   });
   let oldValue = Cart.get();
   oldValue[Index].items++;
+
   Cart.set(oldValue);
 };
 
 export const Cart = persistentAtom<CartType[]>("Cart", [], {
   encode: JSON.stringify,
   decode: JSON.parse,
-  listen: true,
 });
+

@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
 import { Cart, reduceItems, increseItems } from "../utils/store";
-import type { CartType } from "../utils/store";
 import { useStore } from "@nanostores/react";
-const CartList = Cart.get();
+import { useCallback, useEffect, useState } from "react";
 
 export default function CartModule() {
-  // const [store, setStore] = useState<CartType[]>(CartList);
-
   const store = useStore(Cart);
+  const [, update] = useState({});
+  const forceUpdate = useCallback(() => update({}), []);
+  const CartList = Cart.get();
   const SumPrice = CartList.reduce((prev, curr) => {
     const sumCurr = curr.Price * curr.items;
     return prev + sumCurr;
@@ -143,8 +142,13 @@ export default function CartModule() {
     ]);
   };
 
+  useEffect(() => {
+    Cart.subscribe(() => forceUpdate());
+    Cart.off();
+  }, []);
+
   return (
-    <div>
+    <>
       {store.map((item, key) => {
         return (
           <div key={key}>
@@ -169,9 +173,8 @@ export default function CartModule() {
           </div>
         );
       })}
-
       <div>รวม : {SumPrice} บาท</div>
       <button onClick={placeOrder2}>Checkout</button>
-    </div>
+    </>
   );
 }
