@@ -12,7 +12,6 @@ export type CartType = {
 };
 
 export const reduceItems = (ID) => {
-  console.log(ID);
   const Index = Cart.get().findIndex((item) => {
     return item.ID == ID;
   });
@@ -22,7 +21,6 @@ export const reduceItems = (ID) => {
   } else {
     oldValue[Index].items--;
   }
-  console.log(oldValue);
   Cart.set(oldValue);
 };
 

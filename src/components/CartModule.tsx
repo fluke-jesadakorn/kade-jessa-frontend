@@ -1,37 +1,69 @@
 import { Cart, reduceItems, increseItems } from "../utils/store";
 import { useStore } from "@nanostores/react";
 import { useCallback, useEffect, useState } from "react";
+import type { FlexComponent } from "@line/bot-sdk/dist/types";
 
 export default function CartModule() {
   const store = useStore(Cart);
-  const [, update] = useState({});
-  const forceUpdate = useCallback(() => update({}), []);
+  const [SumPrice, setSumprice] = useState(0);
   const CartList = Cart.get();
-  const SumPrice = CartList.reduce((prev, curr) => {
+
+  const sumPrice = CartList.reduce((prev, curr) => {
     const sumCurr = curr.Price * curr.items;
     return prev + sumCurr;
   }, 0);
+  const [, update] = useState({});
+  const forceUpdate = useCallback(() => {
+    update({});
+  }, []);
 
-  const placeOrder2 = () => {
-    liff.sendMessages([
+  const CartText: FlexComponent[] = store.map((data) => {
+    const Title = data.Title;
+    const items = data.items;
+
+    return {
+      type: "box",
+      layout: "baseline",
+      contents: [
+        {
+          type: "text",
+          text: Title,
+          weight: "bold",
+          flex: 0,
+          margin: "sm",
+          contents: [],
+        },
+        {
+          type: "text",
+          text: items.toString(),
+          size: "sm",
+          color: "#AAAAAA",
+          align: "end",
+          contents: [],
+        },
+      ],
+    };
+  });
+
+  const Checkout = async () => {
+    await liff.sendMessages([
       {
         type: "flex",
-        altText: "asd",
         contents: {
           type: "bubble",
           direction: "ltr",
-          hero: {
-            type: "image",
-            url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_2_restaurant.png",
-            size: "full",
-            aspectRatio: "20:13",
-            aspectMode: "cover",
-            action: {
-              type: "uri",
-              label: "Action",
-              uri: "https://linecorp.com",
-            },
-          },
+          // hero: {
+          //   type: "image",
+          //   url: "/kade-jessa-logo.png",
+          //   size: "full",
+          //   aspectRatio: "20:13",
+          //   aspectMode: "cover",
+          //   action: {
+          //     type: "uri",
+          //     label: "Action",
+          //     uri: "https://linecorp.com",
+          //   },
+          // },
           body: {
             type: "box",
             layout: "vertical",
@@ -44,7 +76,7 @@ export default function CartModule() {
             contents: [
               {
                 type: "text",
-                text: "Brown's Burger",
+                text: "รายการสินค้าของคุณ",
                 weight: "bold",
                 size: "xl",
                 contents: [],
@@ -53,67 +85,10 @@ export default function CartModule() {
                 type: "box",
                 layout: "vertical",
                 spacing: "sm",
-                contents: [
-                  {
-                    type: "box",
-                    layout: "baseline",
-                    contents: [
-                      {
-                        type: "icon",
-                        url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/restaurant_regular_32.png",
-                      },
-                      {
-                        type: "text",
-                        text: "$10.5",
-                        weight: "bold",
-                        margin: "sm",
-                        contents: [],
-                      },
-                      {
-                        type: "text",
-                        text: "400kcl",
-                        size: "sm",
-                        color: "#AAAAAA",
-                        align: "end",
-                        contents: [],
-                      },
-                    ],
-                  },
-                  {
-                    type: "box",
-                    layout: "baseline",
-                    contents: [
-                      {
-                        type: "icon",
-                        url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/restaurant_large_32.png",
-                      },
-                      {
-                        type: "text",
-                        text: "$15.5",
-                        weight: "bold",
-                        flex: 0,
-                        margin: "sm",
-                        contents: [],
-                      },
-                      {
-                        type: "text",
-                        text: "550kcl",
-                        size: "sm",
-                        color: "#AAAAAA",
-                        align: "end",
-                        contents: [],
-                      },
-                    ],
-                  },
-                ],
+                contents: CartText,
               },
               {
-                type: "text",
-                text: "Sauce, Onions, Pickles, Lettuce & Cheese",
-                size: "xxs",
-                color: "#AAAAAA",
-                wrap: true,
-                contents: [],
+                type: "separator",
               },
             ],
           },
@@ -129,23 +104,42 @@ export default function CartModule() {
                 type: "button",
                 action: {
                   type: "uri",
-                  label: "Add to Cart",
+                  label: "เพิ่มสินค้า",
                   uri: "https://linecorp.com",
                 },
-                color: "#905C44",
-                style: "primary",
+                color: "#B3F1E8FF",
+                style: "secondary",
+              },
+              {
+                type: "button",
+                action: {
+                  type: "uri",
+                  label: "ชำระเงิน",
+                  uri: "https://linecorp.com",
+                },
+                color: "#F7FB93FF",
+                style: "secondary",
               },
             ],
           },
         },
+        altText: "Your Cart",
       },
     ]);
+
+    liff.closeWindow();
   };
 
   useEffect(() => {
-    Cart.subscribe(() => forceUpdate());
+    Cart.subscribe(() => {
+      forceUpdate();
+    });
     Cart.off();
   }, []);
+
+  useEffect(() => {
+    setSumprice(sumPrice);
+  }, [sumPrice]);
 
   return (
     <>
@@ -174,7 +168,7 @@ export default function CartModule() {
         );
       })}
       <div>รวม : {SumPrice} บาท</div>
-      <button onClick={placeOrder2}>Checkout</button>
+      <button onClick={Checkout}>Checkout</button>
     </>
   );
 }
