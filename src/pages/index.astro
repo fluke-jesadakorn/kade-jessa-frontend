@@ -15,7 +15,7 @@ const getDate = await fetch(ENDPOINT).then((res) => res.json());
     });
   </script> -->
 
-  <main class="my-4 mx-auto px-8">
+  <main class="mx-auto px-4">
     <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8 place-content-center">
       {
         getDate.map((item, index) => {
@@ -23,10 +23,10 @@ const getDate = await fetch(ENDPOINT).then((res) => res.json());
             <Card
               title={item.Title}
               key={item.ID}
-              body={item.Description}
+              description={item.Description}
               href={"/products/" + index.Title}
               src={"https://storage.googleapis.com" + item.Images[0]}
-              hashtag={item.Hashtags[0]}
+              colors={item.Colors}
               price={item.Price}
             />
           );

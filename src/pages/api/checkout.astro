@@ -1,0 +1,31 @@
+---
+import type { APIRoute } from "astro";
+import line from "@line/bot-sdk";
+
+const client = new line.Client({
+  channelAccessToken: "d95ef67a89e7b64244db69411b44b836",
+});
+
+const message = {
+  type: "text",
+  text: "Hello World!",
+};
+
+client
+  .pushMessage("<to>", { type: "text", text: "1234" })
+  .then(() => {})
+  .catch((err) => {
+    // error handling
+  });
+
+export async function post(data) {
+  console.log(data);
+
+  return new Response(JSON.stringify({}), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+---

@@ -16,7 +16,7 @@ export const reduceItems = (ID) => {
     return item.ID == ID;
   });
   let oldValue = Cart.get();
-  if (oldValue[Index].items < 1) {
+  if (oldValue[Index].items < 2) {
     oldValue.splice(Index, 1);
   } else {
     oldValue[Index].items--;

@@ -24,44 +24,24 @@ const { ID, Title, Colors, Description, Hashtags, Images, Price }: Product =
 ---
 
 <Layout>
-  <script is:inline>
-    // const sendMessage = async () => {
-    //   if (liff.isInClient()) {
-    //     liff
-    //       .sendMessages([
-    //         {
-    //           type: "text",
-    //           text: "Hello, World!",
-    //         },
-    //       ])
-    //       .then(() => {
-    //         console.log("message sent");
-    //       })
-    //       .catch((err) => {
-    //         console.log("error", err);
-    //       });
-    //   }
-    // };
-
-    // sendMessage();
-  </script>
 
   <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 px-4">
     <section class="divide-y">
       <div>
-        <h1>{Title}</h1>
+        <h1 class="font-bold">{Title}</h1>
         <p>{Description}</p>
-        {Hashtags.map((item, key) => <p>{item}</p>)}
-        <p>Reference: {ID}</p>
+        <!-- <p>Reference: {ID}</p> -->
       </div>
       <div>
         <h4>&#3647 {Price}</h4>
       </div>
+
       <div
-        class="pointer-events-auto relative inline-flex rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 hover:text-slate-900"
+        class="btn my-4 pointer-events-auto relative inline-flex rounded-xl w-full"
       >
         <Button item={{ ...getDate, items: 1 }} client:load />
       </div>
+
       <div>
         <img src={"https://storage.googleapis.com" + Images[0]} alt={Title} />
       </div>

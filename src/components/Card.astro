@@ -1,12 +1,12 @@
 ---
-import { Image } from "@astrojs/image/components";
 export interface Props {
   title?: string;
-  body?: string;
+  description?: string;
   href?: string;
   src?: string;
   price?: number;
   hashtag?: string;
+  colors?: string[];
   key?: string;
 }
 
@@ -15,24 +15,28 @@ const {
   src = "https://www.dior.com/couture/var/dior/storage/images/pushs-editos/folder-main-winter-22-femme/folder-winter-w2/254r17am523x9000/36557358-1-eng-GB/254r17am523x9000_1440_1200.jpg",
   href = "/",
   title = "title",
-  body = "this is body",
+  description = "this is body",
   key = "",
+  colors = [],
   price = null,
 } = Astro.props;
 ---
 
 <a href={"/products/" + title}>
-  <Image
-    src={src}
-    alt={title}
-    width={400}
-    height={500}
-    format="webp"
-    quality={50}
-  />
-  <h3>{hashtag}</h3>
-  <h2>{title}</h2>
-  <p>{body}</p>
+  <img src={src} alt={title} width={400} height={500} />
+  <h2 class="font-bold">{title}</h2>
+  <p>{description}</p>
+  <!-- <div class="flex">
+    {
+      colors.map((item) => {
+        return (
+          <div
+            style={`height: 25px; width:25px; border-radius:50%; background:${item};`}
+          />
+        );
+      })
+    }
+  </div> -->
   <h4>&#3647 {price}</h4>
 </a>
 
